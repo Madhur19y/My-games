@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flying Bird Game</title>
+  <style>
+    body { text-align:center; font-family:Arial; background:#87CEEB; }
+    canvas { background:#fff; display:block; margin:20px auto; border:2px solid #000; }
+    button { padding:10px 20px; font-size:16px; }
+  </style>
+</head>
+<body>
+  <h1>Flying Bird Game</h1>
+  <canvas id="gameCanvas" width="300" height="400"></canvas>
+  <br>
+  <button onclick="startGame()">Play</button>
+
+  <script>
+    let canvas = document.getElementById('gameCanvas');
+    let ctx = canvas.getContext('2d');
+    let birdY = 200;
+    let gravity = 2;
+    let gameInterval;
+
+    function drawBird() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'red';
+      ctx.fillRect(50, birdY, 30, 30);
+    }
+
+    function update() {
+      birdY += gravity;
+      drawBird();
+      if (birdY > canvas.height) {
+        clearInterval(gameInterval);
+        alert("Game Over!");
+      }
+    }
+
+    function startGame() {
+      birdY = 200;
+      clearInterval(gameInterval);
+      gameInterval = setInterval(update, 50);
+      canvas.onclick = () => { birdY -= 40; }
+    }
+  </script>
+</body>
+</html>
